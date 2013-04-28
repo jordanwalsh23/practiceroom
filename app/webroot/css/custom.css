@@ -46,6 +46,7 @@
 	width:242px;
 	height:29px;
 	background:url(../img/btn-connect-sc-l.png) 0 0 no-repeat;
+	border: none;
 }
 
 #soundcloud-connect:hover {

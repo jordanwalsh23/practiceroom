@@ -21,6 +21,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 App::uses('Controller', 'Controller');
+App::uses('Component', 'Controller');
 
 /**
  * Application Controller
@@ -32,7 +33,10 @@ App::uses('Controller', 'Controller');
  * @link		http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
 class AppController extends Controller {
-	public $components = array('DebugKit.Toolbar');
+	public $components = array('DebugKit.Toolbar', 'Session', 'Common', 'Auth' => array(
+            'loginRedirect' => array('controller' => 'competitions', 'action' => 'index'),
+            'logoutRedirect' => array('controller' => 'pages', 'action' => 'display', 'home')
+        ));
 
 	public $helpers = array(
         'Session',

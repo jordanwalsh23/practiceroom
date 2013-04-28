@@ -3,12 +3,11 @@
 <head>
 	<meta charset="utf-8">
 	<title>
-		<?php echo __('CakePHP: the rapid development php framework:'); ?>
-		<?php echo $title_for_layout; ?>
+		Practice Room - The best place on the internet to buy your lyrics.
 	</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="">
-	<meta name="author" content="">
+	<meta name="description" content="The best place on the internet to buy your lyrics.">
+	<meta name="author" content="Jordan Walsh">
 
 	<!-- Le styles -->
 	<?php //echo $this->Html->css('bootstrap'); ?>
@@ -21,6 +20,7 @@
 	<?php //echo $this->Html->css('bootstrap-responsive.min'); ?>
 	<?php echo $this->Html->css('bootstrap-responsive'); ?>
 	<?php echo $this->Html->css('custom'); ?>
+	<?php echo $this->Html->css('datepicker'); ?>
 
 	<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
 	<!--[if lt IE 9]>
@@ -54,10 +54,48 @@
             	<a class="brand" href="#">Practice Room</a>
             	<div class="nav-collapse collapse">
             		<ul class="nav">
-                		<li><a href="index.php">Home</a></li>
+                		<li><a href="/">Home</a></li>
                 		<li><a href="#about">About</a></li>
                 		<li><a href="#contact">Contact</a></li>
               		</ul> 
+
+              		<?php 
+
+              		$user = AuthComponent::user();
+              		$username = "";
+              		//Debugger::dump($username);
+
+              		if (is_array($user)) { 
+
+              			if(array_key_exists('User',$user)) {
+							$user = $user['User'];
+              			}
+
+              			//Debugger::dump($user);
+
+              			$username = $user['username'];
+              		}
+
+              		if($username != "") {
+
+              			$profileUrl = $this->Html->url(array("controller" => "users", "action" => "profile"));
+              			$competitionsUrl = $this->Html->url(array("controller" => "competitions", "action" => "index"));
+              			$logoutUrl = $this->Html->url(array("controller" => "users", "action" => "logout"));
+
+              		?>
+
+					<ul class="nav pull-right">
+						<li class="dropdown">
+							<a data-toggle="dropdown" class="dropdown-toggle" href="#"><?php echo $username; ?><b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li><a href="<?php echo $profileUrl; ?>">View Profile</a></li>
+								<li><a href="<?php echo $competitionsUrl; ?>">My Competitions</a></li>
+								<li><a href="<?php echo $logoutUrl; ?>">Log out</a></li>
+							</ul>
+						</li>
+					</ul>
+
+					<?php } ?>
             	</div><!--/.nav-collapse -->
           	</div>
         </div>
@@ -66,6 +104,7 @@
 	<div class="container">
 
 		<?php echo $this->Session->flash(); ?>
+		<?php echo $this->Session->flash('auth'); ?>
 
 		<?php echo $this->fetch('content'); ?>
 
@@ -76,6 +115,7 @@
 	<!-- Placed at the end of the document so the pages load faster -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
 	<?php echo $this->Html->script('bootstrap.min'); ?>
+	<?php echo $this->Html->script('bootstrap-datepicker'); ?>
 	<?php echo $this->Html->script('custom'); ?>
 	<?php echo $this->fetch('script'); ?>
 
