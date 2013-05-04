@@ -34,7 +34,7 @@ class UsersController extends AppController {
                 $this->Session->setFlash(__('Username or password is incorrect'), 'default', array(), 'auth');
             }
 
-            $this->render('/pages/home');
+            $this->render('/Pages/home');
         }
     }
 
@@ -45,30 +45,7 @@ class UsersController extends AppController {
 
     public function connect() {
 
-    	$redirect = "";
-		$clientId = "";
-		$clientSecret = "";
-		$servername = "";
-
-		$code = "";
-
-	    //need to save this informations somewhere else
-		$servername = $_SERVER['SERVER_NAME'];
-
-		if($servername == "localhost") {
-			//localhost
-			$redirect = "http://localhost:8888/PracticeRoom/Users/connect";
-			$clientId = "89aa098f19718a885389c33b81ca7c6e";
-			$clientSecret = "9c09244bee5c4003b0e2fbb9272dedd2";
-	   		
-		} else {
-			//heroku
-			$redirect = "http://practiceroom.herokuapp.com/connect";
-			$clientId = "5ff4c246d31af2399229c70b6cef5b3e";
-			$clientSecret = "566131899bc3c10481b64da417e0b105";
-		}
-
-    	$client = new Services_Soundcloud($clientId, $clientSecret, $redirect);
+    	$client = Configure::read('soundcloud_client'); 
 
     	if (array_key_exists('code', $this->request->query)) {
 			$code = $this->request->query['code'];
@@ -91,7 +68,8 @@ class UsersController extends AppController {
         }
 
 		//Lets present this information back to the user for confirmation.
-		$this->set('current_user', $current_user);
+        $this->set('current_user', $current_user);
+		$this->set('access_token', $access_token);
     }
 
     public function add() {

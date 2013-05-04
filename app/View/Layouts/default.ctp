@@ -38,6 +38,10 @@
 	<?php
 	echo $this->fetch('meta');
 	echo $this->fetch('css');
+
+	$homeUrl = $this->Html->url(array("controller" => "users", "action" => "index"));
+	$aboutUrl = $this->Html->url(array("controller" => "users", "action" => "about"));
+	$contactUrl = $this->Html->url(array("controller" => "users", "action" => "contact"));
 	?>
 </head>
 
@@ -54,9 +58,9 @@
             	<a class="brand" href="#">Practice Room</a>
             	<div class="nav-collapse collapse">
             		<ul class="nav">
-                		<li><a href="/">Home</a></li>
-                		<li><a href="#about">About</a></li>
-                		<li><a href="#contact">Contact</a></li>
+                		<li><a href="<?php echo $homeUrl ?>">Home</a></li>
+                		<li><a href="<?php echo $aboutUrl ?>">About</a></li>
+                		<li><a href="<?php echo $contactUrl ?>">Contact</a></li>
               		</ul> 
 
               		<?php 

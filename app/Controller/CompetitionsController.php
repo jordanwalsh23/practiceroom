@@ -22,6 +22,26 @@ class CompetitionsController extends AppController {
     }
 
     public function add() {
-        //Get the information from the Soundcloud and return it to the model.
+
+        $id = $this->Auth->user('userid');
+
+        $client = Configure::read('soundcloud_client'); 
+
+        $response = $client->get("users/".$id."/tracks");
+    
+        //put the listing of tracks into an array
+        $tracks = json_decode($response);
+
+        $tracks_array = array();
+
+        foreach ($tracks as &$track) {
+            $track_url = $track->permalink_url;
+            $client->setCurlOptions(array(CURLOPT_FOLLOWLOCATION => 1));
+            $embed_info = json_decode($client->get('oembed', array('url' => $track_url)));
+            $tracks_array[$track_url] = $embed_info->html;
+        }
+
+        $this->set('tracks', $tracks);
+        $this->set('tracks_array', $tracks_array);
     }
 }

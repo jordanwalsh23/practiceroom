@@ -110,3 +110,39 @@ CakeLog::config('error', array(
 	'types' => array('warning', 'error', 'critical', 'alert', 'emergency'),
 	'file' => 'error',
 ));
+
+/**
+ * Custom Global Variables
+ */
+
+App::import('Vendor', 'Soundcloud');
+App::import('Vendor', 'PracticeRoom');
+
+$redirect = "";
+$clientId = "";
+$clientSecret = "";
+$servername = "";
+
+$code = "";
+
+//need to save this informations somewhere else
+$servername = $_SERVER['SERVER_NAME'];
+
+if($servername == "localhost") {
+	//localhost
+	$redirect = "http://localhost:8888/PracticeRoom/Users/connect";
+	$clientId = "89aa098f19718a885389c33b81ca7c6e";
+	$clientSecret = "9c09244bee5c4003b0e2fbb9272dedd2";
+		
+} else {
+	//heroku
+	$redirect = "http://practiceroom.herokuapp.com/connect";
+	$clientId = "5ff4c246d31af2399229c70b6cef5b3e";
+	$clientSecret = "566131899bc3c10481b64da417e0b105";
+}
+
+$soundcloud_client = new Services_Soundcloud($clientId, $clientSecret, $redirect);
+
+Configure::write(
+    'soundcloud_client', $soundcloud_client
+);

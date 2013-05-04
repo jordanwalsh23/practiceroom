@@ -35,7 +35,7 @@ App::uses('Component', 'Controller');
 class AppController extends Controller {
 	public $components = array('DebugKit.Toolbar', 'Session', 'Common', 'Auth' => array(
             'loginRedirect' => array('controller' => 'competitions', 'action' => 'index'),
-            'logoutRedirect' => array('controller' => 'pages', 'action' => 'display', 'home')
+            'logoutRedirect' => array('controller' => 'users', 'action' => 'index')
         ));
 
 	public $helpers = array(

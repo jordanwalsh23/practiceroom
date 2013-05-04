@@ -33,31 +33,33 @@ App::uses('Debugger', 'Utility');
 			<p>Use Practice Room to create lyrics to your songs.  Lyrics are written by people like you.  You choose what you like, and only pay for what you use</p>
 		</div>
 		<div class="span6">
-		    <form id="soundcloudConnectForm" class="form-horizontal form-horizontal-sm well" method="GET" action="connect.php">
+    		<?php echo $this->Form->create('User', array('class' => 'form-horizontal form-horizontal-sm well', 'url' => array('controller' => 'users', 'action' => 'login'))); ?> 
 			    <h3>Sign in below</h3>
+	    		<?php echo $this->Form->input('username', array(
+		            'label' => 'Email or Username',
+		            'type' => 'text',
+		            'placeholder' => 'Email or Username'
+		        )); ?>
+		        <?php echo $this->Form->input('password', array(
+		            'label' => 'Password',
+		            'type' => 'password',
+		            'placeholder' => 'Password'
+		        )); ?>
+		        <?php echo $this->Form->input('rememberMe', array(
+		            'label' => '',
+		            'type' => 'select',
+		            'multiple' => 'checkbox',
+		            'options' => array(
+		                '1' => 'Remember Me')
+		        )); ?>
+		        <?php echo $this->Form->input('soundcloudconnect', array(
+		            'label' => '',
+		            'type' => 'hidden'
+		        )); ?>
 			    <div class="control-group">
-			   		<label class="control-label" for="inputEmail">Email</label>
 			    	<div class="controls">
-			    		<input type="text" id="inputEmail" placeholder="Email">
-			    	</div>
-			    </div>
-			    <div class="control-group">
-			    	<label class="control-label" for="inputPassword">Password</label>
-			    	<div class="controls">
-			    		<input type="password" id="inputPassword" placeholder="Password">
-			    	</div>
-			    </div>
-			    <div class="control-group">
-			    	<div class="controls">
-			    		<label class="checkbox" for="rememberMe">
-			    			<input type="checkbox" id="rememberMe" name="rememberMe"/> Remember me
-			    		</label>
-			    	</div>
-			    </div>
-			    <div class="control-group">
-			    	<div class="controls">
-			    		<button onclick="javascript:alert('Not implemented yet!\n\nPlease use the SoundCloud login.\n\nU: practiceroom-test\nP: test123'); return false;" class="btn">Sign in</button>
-						<img id="soundcloud-connect" class="" onclick="javascript:$('#soundcloudConnectForm').submit();" img="assets/images/img_trans.gif" height="1" width="1"/>
+			    		<input type="submit" class="btn" value="Sign In"/>
+			    		<input type="submit" value="" class="imgClass" id="soundcloud-connect" onclick="javascript:$('#UserSoundcloudconnect').val('true');return true;" />
 			    	</div>
 			    </div>
 			 </form>    

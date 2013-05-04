@@ -19,7 +19,7 @@
                             'format' => array('before', 'label', 'between', 'input', 'error', 'after'),
                             'div' => array('class' => 'control-group'),
                             'label' => array('class' => 'control-label'),
-                            'between' => '<div class="controls">',
+                            'between' => '<div>',
                             'after' => '</div>',
                             'error' => array('attributes' => array('wrap' => 'span', 'class' => 'help-inline'))),
                         'url' => array('controller' => 'users', 'action' => 'add'))
@@ -55,6 +55,16 @@
                             'type' => 'text',
                             'class' => 'input-xlarge'
                         )); ?>
+                        <?php echo $this->Form->input('userid', array(
+                            'type' => 'hidden',
+                            'value' => $current_user->id
+                        )); ?>
+                        </div>
+                        <?php echo $this->Form->input('access_token', array(
+                            'type' => 'hidden',
+                            'value' => $access_token['access_token']
+                        )); ?>
+                        </div>
                         <div class="control-group">
                             <div class="controls">
                                 <label for="terms" class="checkbox">
